@@ -141,10 +141,12 @@ def expense_page(user):
             category = values["category"]
             amount = values["amount"]
             merchant = values["merchant"]
+            username = user.username
             expense = Expense.Expense(item_name=item_name, category=category,
-                                      amount=amount, merchant=merchant, username=user.username)
-            print("Use user data to create an entry in the expense table and fill in the entries.")
-            remaining_budget_page(user, expense)
+                                      amount=amount, merchant=merchant, username=username)
+            amount_spent = expense.amount
+            remaining_budget_page(user, amount_spent)
+            print("expense page: " + str(amount_spent))
         if event == "Cancel":
             remaining_budget_page(user, 0)
         if event == sg.WIN_CLOSED:
@@ -152,6 +154,7 @@ def expense_page(user):
 
 
 def remaining_budget_page(user, expense):
+    print("gui rem budget: " + str(expense))
     layout = [[sg.Text("Your budget is remaining " + str(user.update_budget(expense)))],
               [sg.Button("OK", key="OK"), sg.Button("Cancel", key="Cancel")]]
     window = sg.Window(title="Expense Tracker", layout=layout, margins=(200, 200), element_justification="c",

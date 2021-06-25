@@ -12,8 +12,8 @@ class Expense:
         self._merchant = merchant
         self._username = username
         user_info = {"item_name": self._item_name, "category": self._category, "amount": self._amount,
-                     "merchant": self._merchant}
-        requests.post(url + "/User/<username>/Expense", json=user_info)
+                     "merchant": self._merchant, "username": self._username}
+        requests.post(url + "/User/" + username + "/Expense", json=user_info)
 
     @property
     def item_name(self):

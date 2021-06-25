@@ -43,11 +43,13 @@ def get_expense(username, search_string):
 
 def update_budget(username, budget):
     result = db.session.query(User).filter_by(username=username).update(budget)
+    db.session.commit()
     return result
 
 
 def update_income(username, income):
     result = db.session.query(User).filter_by(username=username).update(income)
+    db.session.commit()
     return result
 
 

@@ -70,5 +70,5 @@ class User(db.Model, Serializer):
 if __name__ == '__main__':
     db.create_all()
     db.session.commit()
-    # Game.__table__.drop(db.engine)
-    # Game.__table__.create(db.engine)
+    # User.__table__.drop(db.engine)
+    # Expense.__table__.drop(db.engine)

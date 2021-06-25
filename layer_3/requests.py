@@ -1,5 +1,4 @@
 import logging
-from datetime import datetime
 from sqlalchemy import exc
 import sqlalchemy
 from flask import jsonify, request, make_response, g
@@ -49,7 +48,6 @@ def verify_password(username, password):
     return True
 
 
-# Scared I didn't use a get request. Hope this works.
 @app.route('/User/<username>')
 @auth.login_required
 def get_resource():
@@ -68,7 +66,7 @@ def create_expense(username):
     if request.method == 'POST':
         try:
             views.create_new_expense(username=username, item_name=item_name, category=category, amount=amount,
-                                     merchant=merchant)  # How is this parameter supposed to be set?
+                                     merchant=merchant)
             return make_response(jsonify(response='OK'), 201)
         except sqlalchemy.exc.InvalidRequestError:
             return make_response(jsonify(error='Bad request'), 400)
@@ -76,12 +74,9 @@ def create_expense(username):
 
 @app.route('/User/<username>/budget', methods=['PATCH'])
 def update_budget(username):
-    print("I landed here b")
+
     user_info = request.json
-    print(user_info)
-    print(username)
     budget = user_info["budget"]
-    print(budget)
     if budget is not None:
         try:
             budget = {"budget": user_info["budget"]}
@@ -95,10 +90,7 @@ def update_budget(username):
 def update_income(username):
 
     user_info = request.json
-    print(user_info)
-    print(username)
     income = user_info["income"]
-    print(income)
     if income is not None:
         try:
             income = {"income": user_info["income"]}

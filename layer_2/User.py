@@ -41,9 +41,8 @@ class User:
     def initial_monthly_budget(self, savings):
         new_budget = self.income - ((savings/100) * self.income)
         self.budget = new_budget
-        print(self.budget)
         user_info = {"budget": self.budget}
-        requests.patch(url + '/User/' + self.username + '/budget', json=user_info)
+        requests.post(url + '/User/' + self.username + '/budget', json=user_info)
     #
     # @property
     # def income(self):
@@ -54,10 +53,13 @@ class User:
     #     self.income = new_income
 
     def update_budget(self, expense=0):
-        self.budget -= expense
+        print(type(expense))
+        print("user budget: " + str(expense))
+        self.budget -= float(expense)
+        print(type(expense))
         user_info = {"budget": self.budget}
-        print("here, here too")
-        requests.patch(url + '/User/<username>/budget', json=user_info)
+        requests.patch(url + '/User/' + self.username + '/budget', json=user_info)
+        return self.budget
 
     def update_income(self, income):
         self.income = income
